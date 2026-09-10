@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="CSV Auto Cleaner — securely analyze and clean CSV, Excel, JSON and TSV datasets.">
+
+    <meta name="theme-color" content="#2563eb">
+
+    <title>CSV Auto Cleaner</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+    >
+</head>
+
+<body>
+
+<!-- =========================================================
+     SECTION 1
+     UPLOAD + ANALYSIS + INSIGHTS
+     ========================================================= -->
+
+<section id="upload-section" class="screen active">
+
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand" aria-label="CSV Auto Cleaner">
+                <div class="brand-mark" aria-hidden="true">C</div>
+                <span class="brand-name">CSV Auto Cleaner</span>
+            </div>
+
+            <div class="theme-switcher" aria-label="Theme selection">
+                <button type="button" class="theme-btn theme-btn-active" data-theme="light" aria-pressed="true" title="Light theme">
+                    <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+                    <span>Light</span>
+                </button>
+                <button type="button" class="theme-btn" data-theme="dark" aria-pressed="false" title="Dark theme">
+                    <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+                    <span>Dark</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="above-fold">
+
+            <!-- HERO -->
+            <section class="hero">
+                <div class="hero-inner">
+                    <div class="hero-eyebrow">
+                        <span class="hero-eyebrow-dot"></span>
+                        PRIVATE BY DESIGN
+                    </div>
+
+                    <h1 class="hero-title">
+                        Clean messy data.
+                        <span class="hero-title-accent">Keep the good stuff.</span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Analyze. Clean. Validate. Download.
+                        One focused workspace for your dataset.
+                    </p>
+
+                    <div class="hero-trust-row" aria-label="Product highlights">
+                        <span><span class="material-symbols-outlined" aria-hidden="true">tune</span> 30+ cleaning operations</span>
+                        <span><span class="material-symbols-outlined" aria-hidden="true">folder_open</span> 5 supported formats</span>
+                        <span><span class="material-symbols-outlined" aria-hidden="true">undo</span> Undo &amp; reset controls</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="workflow-strip" aria-label="Cleaning workflow">
+                <div class="workflow-step active"><span class="workflow-number">01</span><span>Upload</span></div>
+                <span class="workflow-line" aria-hidden="true"></span>
+                <div class="workflow-step"><span class="workflow-number">02</span><span>Analyze</span></div>
+                <span class="workflow-line" aria-hidden="true"></span>
+                <div class="workflow-step"><span class="workflow-number">03</span><span>Clean</span></div>
+                <span class="workflow-line" aria-hidden="true"></span>
+                <div class="workflow-step"><span class="workflow-number">04</span><span>Download</span></div>
+            </div>
+
+            <!-- UPLOAD + ANALYSIS -->
+            <section class="workspace-grid">
+
+                <!-- =================================================
+                     UPLOAD
+                     ================================================= -->
+
+                <div class="upload-col">
+
+                    <div class="panel-card upload-card js-reveal">
+
+                        <div
+                            id="drop-zone"
+                            class="drop-zone"
+                            tabindex="0"
+                            role="button"
+                            aria-label="Upload dataset"
+                        >
+
+                            <div class="drop-zone-glow" aria-hidden="true"></div>
+
+                            <div
+                                class="drop-icon-wrap"
+                                aria-hidden="true"
+                            >
+                                <span class="material-symbols-outlined drop-icon">
+                                    cloud_upload
+                                </span>
+                            </div>
+
+                            <div class="drop-kicker">SECURE DATA WORKSPACE</div>
+
+                            <h2 class="drop-title">
+                                Drag &amp; drop your dataset
+                            </h2>
+
+                            <p class="drop-or">or</p>
+
+                            <label
+                                class="btn-primary"
+                                for="file-input"
+                            >
+                                <span>Browse files</span>
+
+                                <input
+                                    type="file"
+                                    id="file-input"
+                                    accept=".csv,.xlsx,.xls,.json,.tsv"
+                                    hidden
+                                    aria-label="Choose dataset file"
+                                >
+                            </label>
+
+                            <div class="upload-meta">
+
+                                <div class="supported-row">
+                                    <span>CSV</span>
+                                    <span class="dot" aria-hidden="true"></span>
+
+                                    <span>Excel</span>
+                                    <span class="dot" aria-hidden="true"></span>
+
+                                    <span>JSON</span>
+                                    <span class="dot" aria-hidden="true"></span>
+
+                                    <span>TSV</span>
+                                </div>
+
+                                <span class="max-size">
+                                    Maximum size: 100 MB
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <!-- TRUST / BENEFITS -->
+
+                        <div class="upload-benefits">
+
+                            <div class="upload-benefit">
+                                <span class="material-symbols-outlined" aria-hidden="true">auto_fix_high</span>
+                                <div>
+                                    <strong>30+ cleaning operations</strong>
+                                    <span>Missing values, duplicates, text, dates and more</span>
+                                </div>
+                            </div>
+
+                            <div class="upload-benefit">
+                                <span class="material-symbols-outlined" aria-hidden="true">folder_open</span>
+                                <div>
+                                    <strong>CSV, Excel, JSON &amp; TSV</strong>
+                                    <span>Work with the formats you already use</span>
+                                </div>
+                            </div>
+
+                            <div class="upload-benefit">
+                                <span class="material-symbols-outlined" aria-hidden="true">undo</span>
+                                <div>
+                                    <strong>Undo &amp; reset</strong>
+                                    <span>Review changes and safely return to an earlier state</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- UPLOAD PROGRESS -->
+
+                        <div
+                            id="upload-progress"
+                            class="upload-progress hidden"
+                            role="status"
+                            aria-live="polite"
+                        >
+
+                            <div class="progress-file-row">
+
+                                <span
+                                    class="material-symbols-outlined"
+                                    aria-hidden="true"
+                                >
+                                    description
+                                </span>
+
+                                <span id="progress-filename">
+                                    filename.csv
+                                </span>
+
+                                <span
+                                    id="progress-status"
+                                    class="progress-status"
+                                >
+                                    Uploading…
+                                </span>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div
+                                    id="progress-fill"
+                                    class="progress-fill"
+                                    role="progressbar"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="0"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- UPLOAD ERROR -->
+
+                        <div
+                            id="upload-error"
+                            class="upload-error hidden"
+                            role="alert"
+                            aria-live="assertive"
+                        >
+
+                            <span
+                                class="material-symbols-outlined"
+                                aria-hidden="true"
+                            >
+                                error
+                            </span>
+
+                            <span id="error-message">
+                                Unsupported file type.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ANALYSIS
+                     ================================================= -->
+
+                <div class="analysis-col">
+
+                    <div
+                        class="panel-card analysis-card js-reveal js-reveal-delay"
+                    >
+
+                        <!-- EMPTY ANALYSIS STATE -->
+
+                        <div
+                            id="analysis-empty"
+                            class="analysis-empty"
+                        >
+
+                            <div class="analysis-topbar">
+
+                                <span class="analysis-topbar-title">
+                                    Dataset Analysis
+                                </span>
+
+                                <span class="analysis-topbar-badge">
+                                    Awaiting file
+                                </span>
+
+                            </div>
+
+
+                            <div class="quality-row quality-row-skeleton">
+
+                                <div class="quality-ring-wrap">
+
+                                    <div
+                                        class="quality-ring quality-ring-skeleton"
+                                        aria-hidden="true"
+                                    ></div>
+
+                                </div>
+
+                                <div class="quality-copy">
+
+                                    <span class="quality-label">
+                                        Estimated Quality Score
+                                    </span>
+
+                                    <p class="quality-desc">
+                                        This score will summarize completeness
+                                        and uniqueness once a file is analyzed.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ANALYSIS METRICS ONLY
+                                 No dataset rows are displayed here. -->
+
+                            <div
+                                class="stat-grid"
+                                id="skeleton-stat-grid"
+                            >
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        table_rows
+                                    </span>
+                                    <span class="stat-label">Rows</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        view_column
+                                    </span>
+                                    <span class="stat-label">Columns</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        grid_on
+                                    </span>
+                                    <span class="stat-label">Total cells</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        report
+                                    </span>
+                                    <span class="stat-label">Missing values</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        percent
+                                    </span>
+                                    <span class="stat-label">Missing %</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        content_copy
+                                    </span>
+                                    <span class="stat-label">Duplicate rows</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        percent
+                                    </span>
+                                    <span class="stat-label">Duplicate %</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        tag
+                                    </span>
+                                    <span class="stat-label">Numeric columns</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        notes
+                                    </span>
+                                    <span class="stat-label">Text columns</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        calendar_month
+                                    </span>
+                                    <span class="stat-label">Date columns</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        memory
+                                    </span>
+                                    <span class="stat-label">Memory usage</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        sd_card
+                                    </span>
+                                    <span class="stat-label">Dataset size</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        description
+                                    </span>
+                                    <span class="stat-label">File format</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        translate
+                                    </span>
+                                    <span class="stat-label">Encoding</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                                <div class="stat-card stat-card-skeleton">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        keyboard
+                                    </span>
+                                    <span class="stat-label">Delimiter</span>
+                                    <span class="stat-skel-value"></span>
+                                </div>
+
+                            </div>
+
+                            <p class="analysis-empty-caption">
+                                Upload a file on the left — this dashboard
+                                will populate with your dataset's real analysis.
+                            </p>
+
+                        </div>
+
+
+                        <!-- REAL ANALYSIS -->
+
+                        <div
+                            id="analysis-results"
+                            class="analysis-results hidden"
+                        >
+
+                            <div class="analysis-header">
+
+                                <div class="analysis-header-left">
+
+                                    <span
+                                        class="material-symbols-outlined"
+                                        aria-hidden="true"
+                                    >
+                                        description
+                                    </span>
+
+                                    <span id="analysis-filename">
+                                        filename.csv
+                                    </span>
+
+                                </div>
+
+                                <span class="status-badge">
+
+                                    <span
+                                        class="material-symbols-outlined"
+                                        aria-hidden="true"
+                                    >
+                                        check_circle
+                                    </span>
+
+                                    Ready for cleaning
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="quality-row">
+
+                                <div class="quality-ring-wrap">
+
+                                    <div
+                                        id="quality-ring"
+                                        class="quality-ring"
+                                    >
+                                        <span
+                                            id="quality-ring-value"
+                                            class="quality-ring-value"
+                                        >
+                                            0
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="quality-copy">
+
+                                    <span class="quality-label">
+                                        Data Quality Score
+                                    </span>
+
+                                    <p class="quality-desc">
+                                        Composite score based on completeness
+                                        and uniqueness of this dataset.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="stat-grid"
+                                id="stat-grid"
+                            >
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        table_rows
+                                    </span>
+                                    <span class="stat-label">Rows</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-rows"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        view_column
+                                    </span>
+                                    <span class="stat-label">Columns</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-columns"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        grid_on
+                                    </span>
+                                    <span class="stat-label">Total cells</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-cells"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        report
+                                    </span>
+                                    <span class="stat-label">Missing values</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-missing"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        percent
+                                    </span>
+                                    <span class="stat-label">Missing %</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-missing-pct"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        content_copy
+                                    </span>
+                                    <span class="stat-label">Duplicate rows</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-duplicates"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        percent
+                                    </span>
+                                    <span class="stat-label">Duplicate %</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-duplicates-pct"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        tag
+                                    </span>
+                                    <span class="stat-label">Numeric columns</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-numeric-cols"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        notes
+                                    </span>
+                                    <span class="stat-label">Text columns</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-text-cols"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        calendar_month
+                                    </span>
+                                    <span class="stat-label">Date columns</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-date-cols"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        memory
+                                    </span>
+                                    <span class="stat-label">Memory usage</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-memory"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        sd_card
+                                    </span>
+                                    <span class="stat-label">Dataset size</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-size"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        description
+                                    </span>
+                                    <span class="stat-label">File format</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-filetype"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        translate
+                                    </span>
+                                    <span class="stat-label">Encoding</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-encoding"
+                                    >—</span>
+                                </div>
+
+                                <div class="stat-card">
+                                    <span class="material-symbols-outlined stat-icon">
+                                        keyboard
+                                    </span>
+                                    <span class="stat-label">Delimiter</span>
+                                    <span
+                                        class="stat-value"
+                                        id="stat-delimiter"
+                                    >—</span>
+                                </div>
+
+                            </div>
+
+                            <p class="analysis-note">
+
+                                <span
+                                    class="material-symbols-outlined"
+                                    aria-hidden="true"
+                                >
+                                    info
+                                </span>
+
+                                Quick client-side preview.
+                                Full validation runs after connecting
+                                to the server.
+
+                            </p>
+
+                            <button
+                                type="button"
+                                class="btn-secondary"
+                                id="proceed-btn"
+                            >
+                                <span>Proceed to cleaning</span>
+
+                                <span
+                                    class="material-symbols-outlined btn-arrow"
+                                    aria-hidden="true"
+                                >
+                                    arrow_forward
+                                </span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =========================================================
+             DATASET INSIGHTS
+             ========================================================= -->
+
+        <section class="insights-section">
+
+            <div class="insights-inner">
+
+                <div class="insights-heading-wrap">
+                    <h2 class="insights-heading">Data Profile</h2>
+                    <p class="insights-subheading">
+                        See exactly where your dataset needs attention before you clean it.
+                    </p>
+                </div>
+
+                <div id="insights-empty" class="insights-empty">
+                    <div class="insights-charts-grid">
+                        <div class="chart-card panel-card"><span class="chart-card-title">Missing values by column</span><div class="chart-skeleton chart-skeleton-bar">
+                            <div class="sk-bar" style="--h:35%"></div><div class="sk-bar" style="--h:60%"></div><div class="sk-bar" style="--h:45%"></div><div class="sk-bar" style="--h:78%"></div><div class="sk-bar" style="--h:50%"></div><div class="sk-bar" style="--h:65%"></div>
+                        </div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Column type mix</span><div class="chart-skeleton chart-skeleton-donut"><div class="sk-donut"></div></div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Cell completeness</span><div class="chart-skeleton chart-skeleton-donut"><div class="sk-donut"></div></div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Missing-value share</span><div class="chart-skeleton chart-skeleton-donut"><div class="sk-donut"></div></div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Unique vs duplicate rows</span><div class="chart-skeleton chart-skeleton-donut"><div class="sk-donut"></div></div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Quality score</span><div class="chart-skeleton chart-skeleton-donut"><div class="sk-gauge"></div></div></div>
+                    </div>
+                    <div class="insights-summary-grid">
+                        <div class="chart-card panel-card attention-card"><span class="chart-card-title">Columns needing attention</span><div class="health-skeleton"><div class="sk-line sk-w-100"></div><div class="sk-line sk-w-90"></div><div class="sk-line sk-w-70"></div></div></div>
+                        <div class="chart-card panel-card health-card"><span class="chart-card-title">Dataset Health Summary</span><div class="health-skeleton"><div class="sk-line sk-w-100"></div><div class="sk-line sk-w-90"></div><div class="sk-line sk-w-70"></div></div></div>
+                    </div>
+                    <p class="insights-empty-caption">Upload a dataset to replace these previews with real dataset insights.</p>
+                </div>
+
+                <div id="insights-unavailable" class="insights-unavailable hidden">
+                    <span class="material-symbols-outlined" aria-hidden="true">info</span>
+                    <p>Detailed insights are unavailable for this dataset.</p>
+                </div>
+
+                <div id="insights-results" class="insights-results hidden">
+                    <div class="insights-charts-grid">
+                        <div class="chart-card panel-card"><span class="chart-card-title">Missing values by column</span><div class="chart-canvas-wrap"><canvas id="chart-missing-bar" role="img" aria-label="Bar chart of missing values by column"></canvas></div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Column type mix</span><div class="chart-canvas-wrap"><canvas id="chart-type-pie" role="img" aria-label="Doughnut chart of column data types"></canvas></div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Cell completeness</span><div class="chart-canvas-wrap"><canvas id="chart-completeness" role="img" aria-label="Doughnut chart of complete and missing cells"></canvas></div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Missing-value share</span><div class="chart-canvas-wrap"><canvas id="chart-missing-share" role="img" aria-label="Polar area chart showing missing values by column"></canvas></div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Unique vs duplicate rows</span><div class="chart-canvas-wrap"><canvas id="chart-duplicate-share" role="img" aria-label="Pie chart showing unique and duplicate rows"></canvas></div></div>
+                        <div class="chart-card panel-card"><span class="chart-card-title">Quality score</span><div class="chart-canvas-wrap"><canvas id="chart-quality-score" role="img" aria-label="Doughnut chart showing dataset quality score"></canvas></div></div>
+                    </div>
+                    <div class="insights-summary-grid">
+                        <div class="chart-card panel-card attention-card"><span class="chart-card-title">Columns needing attention</span><div id="column-attention-list" class="column-attention-list"></div></div>
+                        <div class="chart-card panel-card health-card"><span class="chart-card-title">Dataset Health Summary</span><div id="health-summary-list" class="health-summary-list"></div></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             SECURITY / TRUST
+             ========================================================= -->
+
+        <section class="trust-section">
+
+            <div class="trust-inner">
+
+                <div class="trust-heading-wrap">
+
+                    <h2 class="trust-heading">
+                        Uncompromising security
+                    </h2>
+
+                    <p class="trust-subheading">
+                        Security features are backed by the application's
+                        actual temporary-session architecture.
+                    </p>
+
+                </div>
+
+
+                <div class="trust-grid">
+
+                    <div class="trust-card">
+
+                        <span
+                            class="material-symbols-outlined trust-icon"
+                            aria-hidden="true"
+                        >
+                            lock_open
+                        </span>
+
+                        <h3>Start instantly</h3>
+
+                        <p>
+                            Drop in a dataset and move straight into analysis.
+                        </p>
+
+                    </div>
+
+
+                    <div class="trust-card">
+
+                        <span
+                            class="material-symbols-outlined trust-icon"
+                            aria-hidden="true"
+                        >
+                            schedule
+                        </span>
+
+                        <h3>Temporary session</h3>
+
+                        <p>
+                            Each upload receives its own temporary
+                            processing workspace.
+                        </p>
+
+                    </div>
+
+
+                    <div class="trust-card">
+
+                        <span
+                            class="material-symbols-outlined trust-icon"
+                            aria-hidden="true"
+                        >
+                            shield
+                        </span>
+
+                        <h3>Isolated processing</h3>
+
+                        <p>
+                            Dataset processing is performed inside an
+                            isolated temporary session.
+                        </p>
+
+                    </div>
+
+
+                    <div class="trust-card">
+
+                        <span
+                            class="material-symbols-outlined trust-icon"
+                            aria-hidden="true"
+                        >
+                            delete_sweep
+                        </span>
+
+                        <h3>Automatic cleanup</h3>
+
+                        <p>
+                            Temporary sessions are removed after their
+                            configured inactivity period.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             HOW IT WORKS
+             ========================================================= -->
+
+        <section class="steps-section">
+
+            <h2 class="steps-heading">
+                How it works
+            </h2>
+
+            <div class="steps-row">
+
+                <div class="step-card">
+
+                    <div class="step-icon-wrap step-icon-blue">
+                        <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                        >
+                            upload_file
+                        </span>
+                    </div>
+
+                    <span class="step-label">
+                        Step 01
+                    </span>
+
+                    <h3>Upload</h3>
+
+                    <p>
+                        Upload your dataset to create a temporary
+                        processing session.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="step-connector"
+                    aria-hidden="true"
+                ></div>
+
+
+                <div class="step-card">
+
+                    <div class="step-icon-wrap step-icon-blue">
+                        <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                        >
+                            auto_fix_high
+                        </span>
+                    </div>
+
+                    <span class="step-label">
+                        Step 02
+                    </span>
+
+                    <h3>Clean</h3>
+
+                    <p>
+                        Choose the required data-cleaning operations
+                        and process your dataset.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="step-connector"
+                    aria-hidden="true"
+                ></div>
+
+
+                <div class="step-card">
+
+                    <div class="step-icon-wrap step-icon-blue">
+                        <span
+                            class="material-symbols-outlined"
+                            aria-hidden="true"
+                        >
+                            download_done
+                        </span>
+                    </div>
+
+                    <span class="step-label">
+                        Step 03
+                    </span>
+
+                    <h3>Download</h3>
+
+                    <p>
+                        Download the cleaned dataset and review the
+                        processing results.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <div
+                    class="brand-mark small"
+                    aria-hidden="true"
+                >
+                    C
+                </div>
+
+                <span>
+                    CSV Auto Cleaner
+                </span>
+
+            </div>
+
+            <p class="footer-copy">
+                &copy; 2026 CSV Auto Cleaner
+            </p>
+
+        </div>
+
+    </footer>
+
+</section>
+
+
+<!-- =========================================================
+     SECTION 2
+     ANALYSIS
+     ========================================================= -->
+
+<section
+    id="analysis-section"
+    class="screen hidden"
+>
+</section>
+
+
+<!-- =========================================================
+     SECTION 3
+     OPERATIONS WORKSPACE
+     ========================================================= -->
+
+<section
+    id="workspace-section"
+    class="screen hidden"
+>
+
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <div class="brand">
+
+                <div
+                    class="brand-mark"
+                    aria-hidden="true"
+                >
+                    C
+                </div>
+
+                <span class="brand-name">
+                    CSV Auto Cleaner
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="workspace-main">
+
+        <div class="workspace-workflow workflow-workspace" aria-label="Cleaning workflow">
+            <div class="workflow-step complete"><span class="workflow-number">01</span><span>Upload</span></div>
+            <span class="workflow-line complete" aria-hidden="true"></span>
+            <div class="workflow-step complete"><span class="workflow-number">02</span><span>Analyze</span></div>
+            <span class="workflow-line complete" aria-hidden="true"></span>
+            <div class="workflow-step active"><span class="workflow-number">03</span><span>Clean</span></div>
+            <span class="workflow-line" aria-hidden="true"></span>
+            <div class="workflow-step"><span class="workflow-number">04</span><span>Download</span></div>
+        </div>
+
+        <div class="workspace2-grid">
+
+            <!-- OPERATIONS -->
+
+            <div class="ops-col">
+
+                <div class="ops-header">
+
+                    <h1 class="ops-title">
+                        Operations Workspace
+                    </h1>
+
+                    <p class="ops-subtitle">
+                        Choose the cleaning operations to apply to your
+                        dataset. Expand a category to see what's inside.
+                    </p>
+
+                </div>
+
+
+                <!-- Operations are generated by workspace.js -->
+
+                <div
+                    id="accordion-root"
+                    class="accordion-root"
+                ></div>
+
+            </div>
+
+
+            <!-- DATASET SUMMARY -->
+
+            <div class="summary-col">
+
+                <div class="summary-panel panel-card">
+
+                    <h2 class="summary-title">
+                        Dataset Summary
+                    </h2>
+
+
+                    <div class="summary-stat-grid">
+
+                        <div class="summary-stat">
+                            <span class="summary-stat-label">Rows</span>
+                            <span
+                                class="summary-stat-value"
+                                id="sum-rows"
+                            >—</span>
+                        </div>
+
+                        <div class="summary-stat">
+                            <span class="summary-stat-label">Columns</span>
+                            <span
+                                class="summary-stat-value"
+                                id="sum-columns"
+                            >—</span>
+                        </div>
+
+                        <div class="summary-stat">
+                            <span class="summary-stat-label">Missing values</span>
+                            <span
+                                class="summary-stat-value"
+                                id="sum-missing"
+                            >—</span>
+                        </div>
+
+                        <div class="summary-stat">
+                            <span class="summary-stat-label">Duplicate rows</span>
+                            <span
+                                class="summary-stat-value"
+                                id="sum-duplicates"
+                            >—</span>
+                        </div>
+
+                        <div class="summary-stat">
+                            <span class="summary-stat-label">Memory usage</span>
+                            <span
+                                class="summary-stat-value"
+                                id="sum-memory"
+                            >—</span>
+                        </div>
+
+                        <div class="summary-stat">
+                            <span class="summary-stat-label">Dataset size</span>
+                            <span
+                                class="summary-stat-value"
+                                id="sum-size"
+                            >—</span>
+                        </div>
+
+                        <div class="summary-stat">
+                            <span class="summary-stat-label">File type</span>
+                            <span
+                                class="summary-stat-value"
+                                id="sum-filetype"
+                            >—</span>
+                        </div>
+
+                        <div class="summary-stat">
+                            <span class="summary-stat-label">Session status</span>
+                            <span
+                                class="summary-stat-value"
+                                id="sum-session"
+                            >—</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- QUALITY -->
+
+                    <div class="summary-quality-row">
+
+                        <div class="quality-ring-wrap">
+
+                            <div
+                                id="sum-quality-ring"
+                                class="quality-ring"
+                            >
+
+                                <span
+                                    id="sum-quality-value"
+                                    class="quality-ring-value"
+                                >
+                                    —
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <span class="summary-quality-label">
+                            Quality Score
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-divider"></div>
+
+
+                    <!-- SELECTED OPERATIONS -->
+
+                    <div class="summary-selected-row">
+
+                        <span class="summary-selected-label">
+                            Selected operations
+                        </span>
+
+                        <span
+                            id="sum-selected-count"
+                            class="summary-selected-count"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <!-- ESTIMATED CHANGES -->
+
+                    <div class="summary-changes">
+
+                        <span class="summary-changes-label">
+                            Estimated changes
+                        </span>
+
+                        <div
+                            id="sum-changes-list"
+                            class="summary-changes-list"
+                        >
+
+                            <p class="summary-changes-empty">
+                                Select an operation to see its estimated effect.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ESTIMATED TIME -->
+
+                    <div class="summary-meta-row">
+
+                        <span>
+                            Estimated time
+                        </span>
+
+                        <strong id="sum-est-time">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <!-- PROCESS -->
+
+                    <button
+                        type="button"
+                        class="btn-primary btn-process"
+                        id="process-btn"
+                        disabled
+                    >
+
+                        <span>
+                            Process Dataset
+                        </span>
+
+                        <span
+                            class="material-symbols-outlined btn-arrow"
+                            aria-hidden="true"
+                        >
+                            arrow_forward
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- PROCESSING OVERLAY -->
+
+    <div
+        id="processing-overlay"
+        class="processing-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="processing-title"
+    >
+
+        <div class="processing-card">
+
+            <div
+                class="processing-spinner"
+                aria-hidden="true"
+            ></div>
+
+            <h3
+                id="processing-title"
+                class="processing-title"
+            >
+                Processing Dataset
+            </h3>
+
+            <p
+                id="processing-current-op"
+                class="processing-current-op"
+                aria-live="polite"
+            >
+                Preparing…
+            </p>
+
+            <div class="processing-track">
+
+                <div
+                    id="processing-fill"
+                    class="processing-fill"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                ></div>
+
+            </div>
+
+            <p
+                id="processing-complete-note"
+                class="processing-complete-note hidden"
+            >
+
+                <span
+                    class="material-symbols-outlined"
+                    aria-hidden="true"
+                >
+                    check_circle
+                </span>
+
+                Processing complete.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SECTION 4
+     RESULTS
+     ========================================================= -->
+
+<section
+    id="results-section"
+    class="screen hidden"
+>
+</section>
+
+
+<!-- =========================================================
+     THIRD-PARTY CLIENT LIBRARIES
+     ========================================================= -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"
+></script>
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"
+></script>
+
+
+<!-- =========================================================
+     APPLICATION MODULES
+     ========================================================= -->
+
+<script
+    src="{{ url_for('static', filename='js/main.js') }}"
+></script>
+
+<script
+    src="{{ url_for('static', filename='js/results.js') }}"
+></script>
+
+<script
+    src="{{ url_for('static', filename='js/insights.js') }}"
+></script>
+
+<script
+    src="{{ url_for('static', filename='js/upload.js') }}"
+></script>
+
+<script
+    src="{{ url_for('static', filename='js/workspace.js') }}"
+></script>
+
+<script
+    src="{{ url_for('static', filename='js/processing.js') }}"
+></script>
+
+
+<!-- =========================================================
+     NO-JAVASCRIPT FALLBACK
+     ========================================================= -->
+
+<noscript>
+
+    <div
+        style="
+            position:fixed;
+            inset:0;
+            z-index:99999;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:24px;
+            background:#f8fafc;
+            color:#0f172a;
+            font-family:Inter,Arial,sans-serif;
+            text-align:center;
+        "
+    >
+
+        <div>
+
+            <h1>
+                JavaScript is required
+            </h1>
+
+            <p>
+                CSV Auto Cleaner requires JavaScript to upload,
+                analyze and clean datasets.
+            </p>
+
+        </div>
+
+    </div>
+
+</noscript>
+
+
+</body>
+</html>
