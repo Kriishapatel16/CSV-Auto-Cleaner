@@ -9,7 +9,11 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
 
-SESSION_DIR = BASE_DIR / "sessions"
+SESSION_DIR = Path(
+    "/tmp/csv-auto-cleaner-sessions"
+    if os.getenv("VERCEL")
+    else BASE_DIR / "sessions"
+)
 
 MAX_UPLOAD_SIZE = 100 * 1024 * 1024
 
