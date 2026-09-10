@@ -1,6 +1,6 @@
 import io
 
-import pytest
+#import pytest
 
 from app import app
 from core.session_manager import SessionManager
