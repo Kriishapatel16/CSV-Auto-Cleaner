@@ -134,7 +134,10 @@ def create_app():
             "error": "An unexpected server error occurred."
         }), 500
 
-    app.session_manager.cleanup_expired()
+    try:
+        app.session_manager.cleanup_expired()
+    except Exception as e:
+        app.logger.warning(f"Initial cleanup check skipped: {e}")
 
     debug_mode = os.getenv("FLASK_DEBUG", "0") == "1"
     reloader_process = os.getenv("WERKZEUG_RUN_MAIN") == "true"
@@ -143,7 +146,10 @@ def create_app():
         os.getenv("DISABLE_CLEANUP_SCHEDULER", "0") != "1"
         and (not debug_mode or reloader_process)
     ):
-        app.cleanup_scheduler = start_cleanup_scheduler(app)
+        try:
+            app.cleanup_scheduler = start_cleanup_scheduler(app)
+        except Exception as e:
+            app.logger.warning(f"Could not start background cleanup scheduler: {e}")
 
     return app
 
