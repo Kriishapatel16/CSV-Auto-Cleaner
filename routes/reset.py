@@ -1,79 +1,114 @@
-import io
+from flask import Blueprint, jsonify, current_app
 
-#import pytest
+from core.file_io import read_dataset, save_dataset
+from core.analysis_engine import analyze_dataframe
+from core.history_manager import HistoryManager
+from core.output_sanitizer import sanitize_dataframe
 
-from app import app
-from core.session_manager import SessionManager
+
+reset_bp = Blueprint(
+    "reset",
+    __name__,
+    url_prefix="/api"
+)
 
 
-@pytest.fixture
-def client(tmp_path):
-    app.config["TESTING"] = True
+@reset_bp.post("/reset/<session_id>")
+def reset_dataset(session_id):
 
-    app.session_manager = SessionManager(
-        tmp_path / "sessions",
-        app.config["SESSION_TTL_SECONDS"]
+    manager = current_app.session_manager
+
+    session_dir = manager.get_session_path(session_id)
+
+    if session_dir is None:
+        return jsonify({
+            "success": False,
+            "error": "Invalid or expired session."
+        }), 404
+
+    meta = manager.get_meta(session_id) or {}
+
+    original_extension = meta.get("extension")
+
+    if not original_extension:
+        return jsonify({
+            "success": False,
+            "error": "Original file format is unavailable."
+        }), 400
+
+    working_extension = (
+        meta.get("working_extension")
+        or original_extension
     )
 
-    with app.test_client() as client:
-        yield client
+    original_file = (
+        session_dir /
+        f"original.{original_extension}"
+    )
 
+    current_file = (
+        session_dir /
+        f"current.{working_extension}"
+    )
 
-def test_upload_no_file(client):
-    response = client.post("/api/upload")
+    if not original_file.is_file():
+        return jsonify({
+            "success": False,
+            "error": "Original dataset not found."
+        }), 404
 
-    assert response.status_code == 400
+    try:
 
-    data = response.get_json()
-
-    assert data["success"] is False
-    assert data["error"] == "Please select a file to upload."
-
-
-def test_upload_invalid_extension(client):
-    data = {
-        "file": (
-            io.BytesIO(b"fake image content"),
-            "test.jpg"
+        original_df = read_dataset(
+            original_file
         )
-    }
 
-    response = client.post(
-        "/api/upload",
-        data=data,
-        content_type="multipart/form-data"
-    )
-
-    assert response.status_code == 400
-
-    result = response.get_json()
-
-    assert result["success"] is False
-    assert "Unsupported file type" in result["error"]
-
-
-def test_upload_valid_csv(client):
-    csv_content = b"col1,col2\nval1,val2\nval3,val4"
-
-    data = {
-        "file": (
-            io.BytesIO(csv_content),
-            "sample.csv"
+        safe_df = sanitize_dataframe(
+            original_df
         )
-    }
 
-    response = client.post(
-        "/api/upload",
-        data=data,
-        content_type="multipart/form-data"
-    )
+        save_dataset(
+            safe_df,
+            current_file
+        )
 
-    assert response.status_code == 200
+        HistoryManager(session_dir).clear()
 
-    result = response.get_json()
+        report_file = session_dir / "report.pdf"
+        report_file.unlink(missing_ok=True)
 
-    assert result["success"] is True
-    assert result["filename"] == "sample.csv"
-    assert result["extension"] == "csv"
-    assert result["working_extension"] == "csv"
-    assert result["session_id"]
+        df = read_dataset(
+            current_file
+        )
+
+        stats = analyze_dataframe(
+            df
+        )
+
+        manager.update_meta(
+            session_id,
+            last_before_stats=stats,
+            last_after_stats=stats,
+            last_operations=[],
+            last_undo=False
+        )
+
+        manager.touch(session_id)
+
+        return jsonify({
+            "success": True,
+            "session_id": session_id,
+            "stats": stats,
+            "message": "Dataset reset to the original upload."
+        })
+
+    except Exception:
+
+        current_app.logger.exception(
+            "Failed to reset dataset"
+        )
+
+        return jsonify({
+            "success": False,
+            "error": "Unable to reset the dataset."
+        }), 500
